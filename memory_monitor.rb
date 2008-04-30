@@ -1,3 +1,6 @@
+# 
+# Created by Eric Lindvall <eric@5stops.com>
+#
 
 class MemoryMonitor < Scout::Plugin
   def run

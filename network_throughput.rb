@@ -1,3 +1,6 @@
+# 
+# Created by Eric Lindvall <eric@5stops.com>
+#
 
 class NetworkThroughput < Scout::Plugin
   def run

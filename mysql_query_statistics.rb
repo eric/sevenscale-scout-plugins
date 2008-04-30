@@ -1,3 +1,7 @@
+# 
+# Created by Eric Lindvall <eric@5stops.com>
+#
+
 require 'set'
 
 class MysqlQueryStatistics < Scout::Plugin
