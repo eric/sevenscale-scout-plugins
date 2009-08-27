@@ -15,9 +15,7 @@ class MysqlQueryStatistics < Scout::Plugin
     end
 
     user = @options['user'] || 'root'
-    password, host, port, socket = @options.values_at(*%w(password host port socket))
-
-    port = nil if port == ''
+    password, host, port, socket = @options.values_at(*%w(password host port socket)).collect { |v| v == '' ? nil : v }
 
     now    = Time.now
     mysql  = Mysql.connect(host, user, password, nil, port, socket)
