@@ -3,7 +3,7 @@
 #
 
 class MemoryMonitor < Scout::Plugin
-  def run
+  def build_report
     unless File.exists?('/proc/meminfo')
       return { :error => {
         :subject => "Unable to Profile Memory",
@@ -31,21 +31,15 @@ class MemoryMonitor < Scout::Plugin
 
     report = {}
 
-    report['Memory Total'] = mem_total
-    report['Memory Used'] = mem_used
-    report['% Memory Used'] = mem_percent_used
+    report('Memory Total'  => mem_total)
+    report('Memory Used'   => mem_used)
+    report('% Memory Used' => mem_percent_used)
 
-    report['Swap Total'] = swap_total
-    report['Swap Used'] = swap_used
-    report['% Swap Used'] = swap_percent_used
-
-    { :report => report }
+    report('Swap Total'    => swap_total)
+    report('Swap Used'     => swap_used)
+    report('% Swap Used'   => swap_percent_used)
   rescue Exception => e
-    { :error => { 
-        :subject => "Unable to Profile Memory",
-        :body => "An error occurred profiling the memory:\n\n#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}" 
-      }
-    }
+    error("An error occurred profiling the memory:\n\n#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
   end
 end
 
