@@ -7,7 +7,7 @@ require 'set'
 class MysqlQueryStatistics < Scout::Plugin
   ENTRIES = %w(Com_insert Com_select Com_update Com_delete).to_set
 
-  def run
+  def build_report
     begin
       require 'mysql'
     rescue LoadError => e
