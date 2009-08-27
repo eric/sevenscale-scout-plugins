@@ -17,6 +17,8 @@ class MysqlQueryStatistics < Scout::Plugin
     user = @options['user'] || 'root'
     password, host, port, socket = @options.values_at(*%w(password host port socket))
 
+    port = nil if port == ''
+
     now    = Time.now
     mysql  = Mysql.connect(host, user, password, nil, port, socket)
     result = mysql.query('SHOW /*!50002 GLOBAL */ STATUS')
