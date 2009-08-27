@@ -5,12 +5,8 @@
 class MemoryMonitor < Scout::Plugin
   def build_report
     unless File.exists?('/proc/meminfo')
-      return { :error => {
-        :subject => "Unable to Profile Memory",
-        :body => %Q(Unable to find /proc/meminfo. Please ensure your operationg system supports procfs:
-                       http://en.wikipedia.org/wiki/Procfs) 
-        }
-      }
+      return error(%Q(Unable to find /proc/meminfo. Please ensure your operationg system supports procfs:
+                       http://en.wikipedia.org/wiki/Procfs))
     end
 
     mem_info = {}
@@ -28,8 +24,6 @@ class MemoryMonitor < Scout::Plugin
     swap_free = mem_info['SwapFree'] / 1024
     swap_used = swap_total - swap_free
     swap_percent_used = (swap_used / swap_total.to_f * 100).to_i
-
-    report = {}
 
     report('Memory Total'  => mem_total)
     report('Memory Used'   => mem_used)
