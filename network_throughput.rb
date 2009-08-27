@@ -37,7 +37,7 @@ class NetworkThroughput < Scout::Plugin
   def calculate_difference(first, second)
     first, second = first.dup, second.dup
 
-    elapsed_seconds = second.delete(:sample_at) - first.delete(:sample_at)
+    elapsed_seconds = second.delete(:sample_at).to_i - first.delete(:sample_at).to_i
     elapsed_seconds = 1 if elapsed_seconds < 1
 
     result = {}
