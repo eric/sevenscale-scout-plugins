@@ -43,7 +43,7 @@ class NetworkThroughput < Scout::Plugin
     result = {}
 
     second.each do |key, value|
-      result[key] = (value - first[key]) / elapsed_seconds
+      result[key] = (value.to_i - first[key].to_i) / elapsed_seconds
     end
 
     result
