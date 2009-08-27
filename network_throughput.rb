@@ -3,10 +3,7 @@
 #
 
 class NetworkThroughput < Scout::Plugin
-  def run
-    report = {}
-    new_memory = {}
-
+  def build_report
     lines = IO.readlines('/proc/net/dev')[2..-1]
 
     lines.each do |line|
@@ -16,7 +13,7 @@ class NetworkThroughput < Scout::Plugin
 
       in_bytes, in_packets, out_bytes, out_packets = cols.values_at(0, 1, 8, 9).collect { |i| i.to_i }
 
-      new_memory[iface] = {
+      new_data = {
         :sample_at => Time.now.to_i,
         :in_bytes => in_bytes,
         :in_packets => in_packets,
@@ -24,18 +21,17 @@ class NetworkThroughput < Scout::Plugin
         :out_packets => out_packets
       }
 
-      if @memory[iface]
-        differences = calculate_difference(@memory[iface], new_memory[iface])
+      if old_data = memory(iface)
+        differences = calculate_difference(old_data, new_data)
         differences.each do |key, value|
-          report["#{iface}_#{key}_per_second"] = value
+          report("#{iface}_#{key}_per_second" => value)
         end
       end
-    end
 
-    report = nil if report.empty?
-    { :report => report, :memory => new_memory }
+      remember(iface => new_data)
+    end
   rescue Exception => e
-    { :error => "#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}" }
+    error("#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
   end
 
   private
