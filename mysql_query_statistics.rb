@@ -15,10 +15,10 @@ class MysqlQueryStatistics < Scout::Plugin
     end
 
     user = @options['user'] || 'root'
-    password, host, port, socket = @options.values_at %w(password host port socket)
+    password, host, port, socket = @options.values_at(*%w(password host port socket))
 
-    now = Time.now
-    mysql = Mysql.connect(host, user, password, nil, port, socket)
+    now    = Time.now
+    mysql  = Mysql.connect(host, user, password, nil, port, socket)
     result = mysql.query('SHOW /*!50002 GLOBAL */ STATUS')
 
     rows = []
@@ -36,6 +36,8 @@ class MysqlQueryStatistics < Scout::Plugin
     end
 
     report('total' => calculate_counter(now, 'total', total))
+  rescue Exception => e
+    error("An error occurred profiling mysql:\n\n#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
   end
 
   private
