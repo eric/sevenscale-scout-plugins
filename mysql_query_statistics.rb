@@ -40,8 +40,6 @@ class MysqlQueryStatistics < Scout::Plugin
   end
 
   private
-  # Would be nice to be part of scout
-  private
   # Would be nice to be part of scout internals
   def counter(name, value, options = {})
     if data = memory(name)
