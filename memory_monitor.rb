@@ -92,12 +92,12 @@ class MemoryMonitor < Scout::Plugin
           result = value - last_value
           result = result / elapsed_seconds.to_f
 
-          logger.debug "#{name}: result: #{result.inspect}"
+          logger.info "#{name}: result: #{result.inspect}"
 
           report(name => result)
         end
       else
-        logger.debug "#{name}: logging initial value: #{value.inspect}"
+        logger.info "#{name}: logging initial value: #{value.inspect}"
       end
 
       remember(name => { :time => current_time, :value => value })
