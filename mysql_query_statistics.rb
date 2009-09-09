@@ -42,9 +42,10 @@ class MysqlQueryStatistics < Scout::Plugin
   private
   # Would be nice to be part of scout internals
   def counter(name, value, options = {})
+    current_time = Time.now
+
     if data = memory(name)
       last_time, last_value = data.values_at('time', 'value')
-      current_time          = Time.now
       elapsed_seconds       = current_time - last_time
 
       # We won't log it if the value has wrapped or enough time hasn't
