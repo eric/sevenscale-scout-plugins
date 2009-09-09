@@ -85,7 +85,7 @@ class MemoryMonitor < Scout::Plugin
 
     metrics.each do |(name, value)|
       if data = memory(name)
-        last_time, last_value = data.values_at(:time, :value)
+        last_time, last_value = data.values_at('time', 'value')
         elapsed_seconds       = last_time - current_time
 
         # We won't log it if the value has wrapped or enough time hasn't
