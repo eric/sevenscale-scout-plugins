@@ -55,7 +55,7 @@ class MysqlQueryStatistics < Scout::Plugin
     current_time = Time.now
 
     metrics.each do |(name, value)|
-      if data = memory(name) && data.is_a?(Hash)
+      if data = memory(name)
         last_time, last_value = data.values_at(:time, :value)
         elapsed_seconds       = last_time - current_time
 
