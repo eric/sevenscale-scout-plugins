@@ -71,6 +71,7 @@ class MemoryMonitor < Scout::Plugin
   def counter(name, value, options = {})
     if data = memory(name)
       last_time, last_value = data.values_at('time', 'value')
+      current_time          = Time.now
       elapsed_seconds       = current_time - last_time
 
       # We won't log it if the value has wrapped or enough time hasn't
