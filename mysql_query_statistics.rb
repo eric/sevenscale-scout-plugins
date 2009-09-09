@@ -11,7 +11,7 @@ class MysqlQueryStatistics < Scout::Plugin
     begin
       require 'mysql'
     rescue LoadError => e
-      error("Unable to find a mysql library. Please install the library to use this plugin")
+      return error("Unable to find a mysql library. Please install the library to use this plugin")
     end
 
     user = @options['user'] || 'root'
