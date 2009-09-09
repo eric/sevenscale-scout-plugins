@@ -4,6 +4,8 @@
 
 class MemoryMonitor < Scout::Plugin
   def build_report
+    logger.info "@memory: #{@memory.inspect}"
+
     unless File.exists?('/proc/meminfo')
       return error(%Q(Unable to find /proc/meminfo. Please ensure your operationg system supports procfs:
                        http://en.wikipedia.org/wiki/Procfs))
