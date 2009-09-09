@@ -4,8 +4,6 @@
 
 class MemoryMonitor < Scout::Plugin
   def build_report
-    logger.info "@memory: #{@memory.inspect}"
-
     unless File.exists?('/proc/meminfo')
       return error(%Q(Unable to find /proc/meminfo. Please ensure your operationg system supports procfs:
                        http://en.wikipedia.org/wiki/Procfs))
@@ -30,9 +28,9 @@ class MemoryMonitor < Scout::Plugin
     report('% Swap Used'   => swap_percent_used)
 
     if vmstat?
-      counter('Page-ins'    => vmstat['pgpgin'])
-      counter('Page-outs'   => vmstat['pgpgout'])
-      counter('Page Faults' => vmstat['pgfault'])
+      counter('Page-ins/sec',    vmstat['pgpgin'],  :per => :second, :round => true)
+      counter('Page-outs/sec',   vmstat['pgpgout'], :per => :second, :round => true)
+      counter('Page Faults/sec', vmstat['pgfault'], :per => :second, :round => true)
     end
   rescue Exception => e
     error("An error occurred profiling the memory:\n\n#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
@@ -70,40 +68,30 @@ class MemoryMonitor < Scout::Plugin
 
   private
   # Would be nice to be part of scout internals
-  def counter(*args)
-    metrics = {}
-    # divide Hash and non-Hash arguments
-    hashes, other = args.partition { |value| value.is_a? Hash }
-    # merge all Hash arguments into the Mission memory
-    hashes.each do |hash|
-      metrics.merge!(hash)
-    end
+  def counter(name, value, options = {})
+    if data = memory(name)
+      last_time, last_value = data.values_at('time', 'value')
+      elapsed_seconds       = current_time - last_time
 
-    metrics.merge!(Hash[*other])
+      # We won't log it if the value has wrapped or enough time hasn't
+      # elapsed
+      if value >= last_value && elapsed_seconds >= 1
+        result = value - last_value
 
-    current_time = Time.now
-
-    metrics.each do |(name, value)|
-      if data = memory(name)
-        last_time, last_value = data.values_at('time', 'value')
-        elapsed_seconds       = current_time - last_time
-
-        # We won't log it if the value has wrapped or enough time hasn't
-        # elapsed
-        if value >= last_value && elapsed_seconds >= 1
-          result = value - last_value
+        case options[:per]
+        when :second, 'second'
           result = result / elapsed_seconds.to_f
-
-          logger.info "#{name}: result: #{result.inspect}"
-
-          report(name => result)
+        when :minute, 'minute'
+          result = result / elapsed_seconds.to_f / 60.0
         end
-      else
-        logger.info "#{name}: logging initial value: #{value.inspect}"
-      end
 
-      remember(name => { :time => current_time, :value => value })
+        result = result.to_i if options[:round]
+
+        report(name => result)
+      end
     end
+
+    remember(name => { :time => current_time, :value => value })
   end
 end
 
