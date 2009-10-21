@@ -73,7 +73,11 @@ class MemoryMonitor < Scout::Plugin
 
     if data = memory(name)
       last_time, last_value = data.values_at('time', 'value')
-      elapsed_seconds       = current_time - last_time
+
+      # Make sure we don't have bad values
+      return unless last_time && last_value
+
+      elapsed_seconds = current_time - last_time
 
       # We won't log it if the value has wrapped or enough time hasn't
       # elapsed
