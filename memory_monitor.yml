@@ -1,5 +1,58 @@
-metadata: {}
-
+metadata: 
+  Page-ins/sec:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Page-ins/sec
+  "% Swap Used":
+    units: "%"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: "% swap used"
+  "% Memory Used":
+    units: "%"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: "% memory used"
+  Swap Total:
+    units: MB
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Swap total
+  Page-outs/sec:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Page-outs/sec
+  Memory Used:
+    units: MB
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Memory used
+  Page Faults/sec:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Page faults/sec
+  Memory Total:
+    units: MB
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Memory total
+  Swap Used:
+    units: MB
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "1"
+    label: Swap used
 triggers: 
 - percentage_change: 500
   type: trend
