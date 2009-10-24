@@ -1,0 +1,14 @@
+metadata: {}
+
+triggers: 
+- percentage_change: 500
+  type: trend
+  min_value: 0.0
+  window_reference: PRECEDING_WINDOW
+  dname: Page Faults/sec
+  population_size: 0
+  direction: UP
+- max_value: 90.0
+  type: peak
+  dname: "% Memory Used"
+  population_size: 0
