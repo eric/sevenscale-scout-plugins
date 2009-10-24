@@ -45,28 +45,24 @@ class MysqlQueryStatistics < Scout::Plugin
     current_time = Time.now
 
     if data = memory(name)
-      last_time, last_value = data.values_at('time', 'value')
+      last_time, last_value = data[:time], data[:value]
+      elapsed_seconds       = current_time - last_time
 
-      # Deal with bad values
-      if last_time && last_value
-        elapsed_seconds = current_time - last_time
+      # We won't log it if the value has wrapped or enough time hasn't
+      # elapsed
+      if value >= last_value && elapsed_seconds >= 1
+        result = value - last_value
 
-        # We won't log it if the value has wrapped or enough time hasn't
-        # elapsed
-        if value >= last_value && elapsed_seconds >= 1
-          result = value - last_value
-
-          case options[:per]
-          when :second, 'second'
-            result = result / elapsed_seconds.to_f
-          when :minute, 'minute'
-            result = result / elapsed_seconds.to_f / 60.0
-          end
-
-          result = result.to_i if options[:round]
-
-          report(name => result)
+        case options[:per]
+        when :second, 'second'
+          result = result / elapsed_seconds.to_f
+        when :minute, 'minute'
+          result = result / elapsed_seconds.to_f / 60.0
         end
+
+        result = result.to_i if options[:round]
+
+        report(name => result)
       end
     end
 
