@@ -1,0 +1,25 @@
+metadata:
+  ESTABLISHED:
+    precision: "0"
+  TIME_WAIT:
+    precision: "0"
+  LISTEN:
+    precision: "0"
+  CLOSE_WAIT:
+    precision: "0"
+  SYN_SENT:
+    precision: "0"
+  SYN_RECV:
+    precision: "0"
+  FIN_WAIT1:
+    precision: "0"
+  FIN_WAIT2:
+    precision: "0"
+  CLOSED:
+    precision: "0"
+  CLOSING:
+    precision: "0"
+  LAST_ACK:
+    precision: "0"
+  UNKNOWN:
+    precision: "0"
