@@ -54,14 +54,21 @@ metadata:
     precision: "0"
     label: Swap used
 triggers: 
-- percentage_change: 500
-  type: trend
-  min_value: 0.0
-  window_reference: PRECEDING_WINDOW
-  dname: Page Faults/sec
-  population_size: 0
-  direction: UP
 - max_value: 90.0
   type: peak
   dname: "% Memory Used"
   population_size: 0
+- percentage_change: 100
+  type: trend
+  min_value: 50.0
+  window_reference: PRECEDING_WINDOW
+  dname: Page-ins/sec
+  population_size: 0
+  direction: UP
+- percentage_change: 100
+  type: trend
+  min_value: 50.0
+  window_reference: PRECEDING_WINDOW
+  dname: Page-outs/sec
+  population_size: 0
+  direction: UP
