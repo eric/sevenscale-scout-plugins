@@ -9,7 +9,6 @@ class Swappiness < Scout::Plugin
     if vmstat?
       counter('Swap-ins',    vmstat['pswpin'],  :per => :second, :round => true)
       counter('Swap-outs',   vmstat['pswpout'], :per => :second, :round => true)
-      counter('Page-outs',   vmstat['pgpgout'], :per => :second, :round => true)
       counter('Page-ins',    vmstat['pgpgin'],  :per => :second, :round => true)
       counter('Page-outs',   vmstat['pgpgout'], :per => :second, :round => true)
       counter('Page Faults', vmstat['pgfault'], :per => :second, :round => true)
