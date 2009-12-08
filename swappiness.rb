@@ -1,8 +1,10 @@
 # 
-# Created by Eric Lindvall <eric@5stops.com>
+# Created by Eric Lindvall <eric@sevenscale.com>
+#
+# Name provided by Jesse Newland <jesse@railsmachine.com>
 #
 
-class MemoryMonitor < Scout::Plugin
+class Swappiness < Scout::Plugin
   def build_report
     if vmstat?
       counter('Swap-ins',    vmstat['pswpin'],  :per => :second, :round => true)
