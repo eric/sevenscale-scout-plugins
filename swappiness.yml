@@ -1,0 +1,46 @@
+metadata: 
+  Swap-ins:
+    units: "KB/s"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Swap-ins
+  Swap-outs:
+    units: "KB/s"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Swap-outs
+  Page-ins:
+    units: "pages/s"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Page-ins
+  Page-outs:
+    units: "pages/s"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Page-outs
+  Page Faults:
+    units: "faults/s"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Page faults
+triggers: 
+- percentage_change: 100
+  type: trend
+  min_value: 0
+  window_reference: PRECEDING_WINDOW
+  dname: Swap-ins
+  population_size: 0
+  direction: UP
+- percentage_change: 100
+  type: trend
+  min_value: 0
+  window_reference: PRECEDING_WINDOW
+  dname: Swap-outs
+  population_size: 0
+  direction: UP
