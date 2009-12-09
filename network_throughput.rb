@@ -13,39 +13,42 @@ class NetworkThroughput < Scout::Plugin
 
       in_bytes, in_packets, out_bytes, out_packets = cols.values_at(0, 1, 8, 9).collect { |i| i.to_i }
 
-      new_data = {
-        :sample_at   => Time.now.to_i,
-        :in_bytes    => in_bytes,
-        :in_packets  => in_packets,
-        :out_bytes   => out_bytes,
-        :out_packets => out_packets
-      }
-
-      if old_data = memory(iface)
-        calculate_difference(old_data, new_data).each do |key, value|
-          report("#{iface}_#{key}_per_second" => value)
-        end
-      end
-
-      remember(iface => new_data)
+      counter("#{iface}_in",          in_bytes / 1024.0,  :per => :second)
+      counter("#{iface}_in_packets",  in_packets,         :per => :second)
+      counter("#{iface}_out",         out_bytes / 1024.0, :per => :second)
+      counter("#{iface}_out_packets", out_packets,        :per => :second)
     end
   rescue Exception => e
     error("#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
   end
 
   private
-  def calculate_difference(first, second)
-    first, second = first.dup, second.dup
+  # Would be nice to be part of scout internals
+  def counter(name, value, options = {})
+    current_time = Time.now
 
-    elapsed_seconds = second.delete(:sample_at).to_i - first.delete(:sample_at).to_i
-    elapsed_seconds = 1 if elapsed_seconds < 1
+    if data = memory(name)
+      last_time, last_value = data[:time], data[:value]
+      elapsed_seconds       = current_time - last_time
 
-    result = {}
+      # We won't log it if the value has wrapped or enough time hasn't
+      # elapsed
+      if value >= last_value && elapsed_seconds >= 1
+        result = value - last_value
 
-    second.each do |key, value|
-      result[key] = (value.to_i - first[key].to_i) / elapsed_seconds
+        case options[:per]
+        when :second, 'second'
+          result = result / elapsed_seconds.to_f
+        when :minute, 'minute'
+          result = result / elapsed_seconds.to_f / 60.0
+        end
+
+        result = result.to_i if options[:round]
+
+        report(name => result)
+      end
     end
 
-    result
+    remember(name => { :time => current_time, :value => value })
   end
 end

@@ -1,50 +1,49 @@
-metadata: !map:HashWithIndifferentAccess 
-  eth0_out_bytes_per_second: !map:HashWithIndifferentAccess 
-    units: bytes/s
+metadata:
+  eth0_out:
+    units: KB/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth0 out bytes per second
-  eth0_out_packets_per_second: !map:HashWithIndifferentAccess 
+    label: eth0 out
+  eth0_out_packets:
     units: pkts/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth0 out packets per second
-  eth0_in_bytes_per_second: !map:HashWithIndifferentAccess 
-    units: bytes/s
+    label: eth0 out packets
+  eth0_in: 
+    units: KB/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth0 in bytes per second
-  eth0_in_packets_per_second: !map:HashWithIndifferentAccess 
+    label: eth0 in
+  eth0_in_packets:
     units: pkts/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth0 in packets per second
-  eth1_out_packets_per_second: !map:HashWithIndifferentAccess 
+    label: eth0 in packets
+  eth1_out_packets: 
     units: pkts/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth1 out packets per second
-  eth1_out_bytes_per_second: !map:HashWithIndifferentAccess 
-    units: bytes/s
+    label: eth1 out packets
+  eth1_out:
+    units: KB/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth1 out bytes per second
-  eth1_in_bytes_per_second: !map:HashWithIndifferentAccess 
-    units: bytes/s
+    label: eth1 out
+  eth1_in:
+    units: KB/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth1 in bytes per second
-  eth1_in_packets_per_second: !map:HashWithIndifferentAccess 
+    label: eth1 in
+  eth1_in_packets:
     units: pkts/s
     larger_is_better: "0"
     delimiter: ","
     precision: "0"
-    label: Eth1 in packets per second
- 
+    label: eth1 in packets
