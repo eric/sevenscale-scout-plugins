@@ -37,6 +37,7 @@ triggers:
   dname: Swap-ins
   population_size: 0
   direction: UP
+  duration: 60
 - percentage_change: 100
   type: trend
   min_value: 0
@@ -44,3 +45,4 @@ triggers:
   dname: Swap-outs
   population_size: 0
   direction: UP
+  duration: 60
