@@ -32,7 +32,7 @@ metadata:
 triggers: 
 - percentage_change: 100
   type: trend
-  min_value: 0
+  min_value: 1
   window_reference: PRECEDING_WINDOW
   dname: Swap-ins
   population_size: 0
@@ -40,7 +40,7 @@ triggers:
   duration: 60
 - percentage_change: 100
   type: trend
-  min_value: 0
+  min_value: 1
   window_reference: PRECEDING_WINDOW
   dname: Swap-outs
   population_size: 0
