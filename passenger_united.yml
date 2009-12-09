@@ -1,0 +1,88 @@
+options:
+  passenger_memory_stats_command:
+    name: The Passenger Memory Stats Command
+    notes: The full path to the passenger-memory-stats command (possibly with sudo).
+    default: sudo /usr/bin/passenger-memory-stats
+  passenger_status_command:
+    name: The Passenger Status Command
+    notes: The full path to the passenger-status command (possibly with sudo).
+    default: sudo /usr/bin/passenger-status
+metadata:
+  passenger_max_pool_size: 
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger Max Pool Size
+  passenger_process_current: 
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger Running Processes
+  passenger_process_active: 
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger Active Processes
+  passenger_process_inactive: 
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger Inactive Processes
+  passenger_queue_depth: 
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger Global Queue Depth
+  apache_private_total:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Apache private total
+  apache_processes:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Apache processes
+  passenger_vmsize_total:
+    units: "MB"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger vmsize total
+  nginx_vmsize_total:
+    units: "MB"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Nginx vmsize total
+  nginx_processes:
+    units: ""
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Nginx processes
+  passenger_private_total:
+    units: "MB"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Passenger private total
+  nginx_private_total:
+    units: "MB"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Nginx private total
+  apache_vmsize_total:
+    units: "MB"
+    larger_is_better: "0"
+    delimiter: ","
+    precision: "0"
+    label: Apache vmsize total
