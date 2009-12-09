@@ -86,3 +86,20 @@ metadata:
     delimiter: ","
     precision: "0"
     label: Apache vmsize total
+triggers: 
+- percentage_change: 50
+  type: trend
+  min_value: 0.0
+  window_reference: PRECEDING_WINDOW
+  dname: apache_private_total
+  population_size: 0
+  direction: UP
+  duration: 60
+- percentage_change: 50
+  type: trend
+  min_value: 0.0
+  window_reference: PRECEDING_WINDOW
+  dname: passenger_private_total
+  population_size: 0
+  direction: UP
+  duration: 60
