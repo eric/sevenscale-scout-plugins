@@ -13,10 +13,10 @@ class NetworkThroughput < Scout::Plugin
 
       in_bytes, in_packets, out_bytes, out_packets = cols.values_at(0, 1, 8, 9).collect { |i| i.to_i }
 
-      counter("#{iface}_in",          in_bytes / 1024.0,  :per => :second)
-      counter("#{iface}_in_packets",  in_packets,         :per => :second)
-      counter("#{iface}_out",         out_bytes / 1024.0, :per => :second)
-      counter("#{iface}_out_packets", out_packets,        :per => :second)
+      counter("#{iface}_in",          in_bytes / 1024.0,  :per => :second, :round => 2)
+      counter("#{iface}_in_packets",  in_packets,         :per => :second, :round => 2)
+      counter("#{iface}_out",         out_bytes / 1024.0, :per => :second, :round => 2)
+      counter("#{iface}_out_packets", out_packets,        :per => :second, :round => 2)
     end
   rescue Exception => e
     error("#{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}")
@@ -43,7 +43,12 @@ class NetworkThroughput < Scout::Plugin
           result = result / elapsed_seconds.to_f / 60.0
         end
 
-        result = result.to_i if options[:round]
+        if options[:round]
+          # Backward compatibility
+          options[:round] = 1 if options[:round] == true
+
+          result = (result * (10 ** options[:round])).round / (10 ** options[:round]).to_f
+        end
 
         report(name => result)
       end
