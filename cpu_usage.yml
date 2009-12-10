@@ -1,0 +1,21 @@
+metadata: 
+  user:
+    units: "%"
+    delimiter: ","
+    precision: 1
+    label: User
+  system:
+    units: "%"
+    delimiter: ","
+    precision: 1
+    label: System
+  idle:
+    units: "%"
+    delimiter: ","
+    precision: 1
+    label: Idle
+  iowait:
+    units: "%"
+    delimiter: ","
+    precision: 1
+    label: IO Wait
