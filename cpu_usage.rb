@@ -8,8 +8,6 @@ class CpuUsage < Scout::Plugin
   def build_report
     stats = CpuStats.fetch
 
-    puts "stats: #{stats.inspect}"
-
     if previous = memory(:cpu_stats)
       previous_stats = CpuStats.new(previous)
 
