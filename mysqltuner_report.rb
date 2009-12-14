@@ -12,6 +12,6 @@ class MysqltunerReport < Scout::Plugin
       return error "Could not get data from command: #{cmd}", "Error: #{data}"
     end   
 
-    summary :command => 'mysqltuner.pl', :output => "<pre>#{data}</pre>"
+    summary(:command => 'mysqltuner results', :output => data)
   end
 end
