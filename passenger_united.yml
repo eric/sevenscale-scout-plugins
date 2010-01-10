@@ -103,3 +103,8 @@ triggers:
   population_size: 0
   direction: UP
   duration: 60
+- max_value: 1.0
+  type: plateau
+  dname: passenger_queue_depth
+  population_size: 0
+  duration: 30
